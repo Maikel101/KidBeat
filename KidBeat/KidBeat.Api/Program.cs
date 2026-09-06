@@ -1,4 +1,5 @@
 using KidBeat.Api.Data;
+using KidBeat.Api.Services.Parque;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<KidBeatDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IParqueService, ParqueService>();
 
 
 // Add services to the container.
