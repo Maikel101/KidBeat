@@ -50,7 +50,7 @@ public class ComentarioService : IComentarioService
         return MapToDto(comentario);
     }
 
-    public async Task<ResultadoOperacionComentario> UpdateAsync(
+    public async Task<ResultadoOperacion> UpdateAsync(
         int id,
         int usuarioId,
         UpdateComentarioDto dto)
@@ -60,12 +60,12 @@ public class ComentarioService : IComentarioService
 
         if (comentario is null)
         {
-            return ResultadoOperacionComentario.NoEncontrado;
+            return ResultadoOperacion.NoEncontrado;
         }
 
         if (comentario.UsuarioId != usuarioId)
         {
-            return ResultadoOperacionComentario.NoAutorizado;
+            return ResultadoOperacion.NoAutorizado;
         }
 
         comentario.Texto = dto.Texto;
@@ -73,29 +73,29 @@ public class ComentarioService : IComentarioService
 
         await _context.SaveChangesAsync();
 
-        return ResultadoOperacionComentario.Correcto;
+        return ResultadoOperacion.Correcto;
     }
 
-    public async Task<ResultadoOperacionComentario> DeleteAsync(int id, int usuarioId)
+    public async Task<ResultadoOperacion> DeleteAsync(int id, int usuarioId)
     {
         var comentario = await _context.Comentarios
             .FirstOrDefaultAsync(c => c.Id == id);
 
         if (comentario is null)
         {
-            return ResultadoOperacionComentario.NoEncontrado;
+            return ResultadoOperacion.NoEncontrado;
         }
 
         if (comentario.UsuarioId != usuarioId)
         {
-            return ResultadoOperacionComentario.NoAutorizado;
+            return ResultadoOperacion.NoAutorizado;
         }
 
         _context.Comentarios.Remove(comentario);
 
         await _context.SaveChangesAsync();
 
-        return ResultadoOperacionComentario.Correcto;
+        return ResultadoOperacion.Correcto;
     }
 
     private static ComentarioDto MapToDto(ComentarioModel comentario)

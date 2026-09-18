@@ -1,13 +1,16 @@
 using KidBeat.Api.Data;
-using KidBeat.Api.Services.Parque;
 using KidBeat.Api.Services.Comentario;
+using KidBeat.Api.Services.Imagen;
+using KidBeat.Api.Services.Parque;
 using KidBeat.Api.Services.Usuario;
-using Microsoft.EntityFrameworkCore;
+using KidBeat.Api.Services.Valoracion;
+using KidBeat.Api.Services.Visita;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,9 @@ builder.Services.AddDbContext<KidBeatDbContext>(options =>
 builder.Services.AddScoped<IParqueService, ParqueService>();
 builder.Services.AddScoped<IComentarioService, ComentarioService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IImagenService, ImagenService>();
+builder.Services.AddScoped<IValoracionService, ValoracionService>();
+builder.Services.AddScoped<IVisitaService, VisitaService>();
 
 builder.Services.AddScoped<
     IPasswordHasher<KidBeat.Api.Models.Usuario>,

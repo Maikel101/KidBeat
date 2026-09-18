@@ -17,6 +17,8 @@ public class UsuarioController : ControllerBase
         _usuarioService = usuarioService;
     }
 
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     [HttpPost("register")]
     public async Task<ActionResult<UsuarioDto>> Register(
         RegisterUsuarioDto dto)
@@ -36,6 +38,8 @@ public class UsuarioController : ControllerBase
         }
     }
 
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [HttpPost("login")]
     public async Task<ActionResult<string>> Login(
         LoginUsuarioDto dto)
@@ -50,6 +54,8 @@ public class UsuarioController : ControllerBase
         return Ok(token);
     }
 
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [HttpGet("me")]
     [Authorize]
     public IActionResult GetCurrentUser()

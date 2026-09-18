@@ -80,12 +80,12 @@ public class ComentarioController : ControllerBase
 
         var resultado = await _comentarioService.UpdateAsync(id, usuarioId, dto);
 
-        if (resultado == ResultadoOperacionComentario.NoEncontrado)
+        if (resultado == ResultadoOperacion.NoEncontrado)
         {
             return NotFound();
         }
 
-        if (resultado == ResultadoOperacionComentario.NoAutorizado)
+        if (resultado == ResultadoOperacion.NoAutorizado)
         {
             return Forbid();
         }
@@ -113,12 +113,12 @@ public class ComentarioController : ControllerBase
             id,
             usuarioId);
 
-        if (resultado == ResultadoOperacionComentario.NoEncontrado)
+        if (resultado == ResultadoOperacion.NoEncontrado)
         {
             return NotFound();
         }
 
-        if (resultado == ResultadoOperacionComentario.NoAutorizado)
+        if (resultado == ResultadoOperacion.NoAutorizado)
         {
             return Forbid();
         }

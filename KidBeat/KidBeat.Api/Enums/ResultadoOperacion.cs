@@ -1,8 +1,9 @@
 ﻿namespace KidBeat.Api.Enums;
 
-public enum ResultadoOperacionComentario
+public enum ResultadoOperacion
 {
     Correcto,
     NoEncontrado,
-    NoAutorizado
+    NoAutorizado,
+    YaExiste
 }

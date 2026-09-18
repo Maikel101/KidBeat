@@ -15,6 +15,7 @@ public class ParqueController : ControllerBase
         _parqueService = parqueService;
     }
 
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ParqueDto>>> GetAll()
     {
@@ -23,6 +24,8 @@ public class ParqueController : ControllerBase
         return Ok(parques);
     }
 
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("{id}")]
     public async Task<ActionResult<ParqueDto>> GetById(int id)
     {
@@ -36,18 +39,25 @@ public class ParqueController : ControllerBase
         return Ok(parque);
     }
 
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [HttpPost]
-    public async Task<ActionResult<ParqueDto>> Create(CreateParqueDto dto)
+    public async Task<ActionResult<ParqueDto>> Create(
+        CreateParqueDto dto)
     {
         var parque = await _parqueService.CreateAsync(dto);
 
-        return CreatedAtAction(nameof(GetById),
+        return CreatedAtAction(
+            nameof(GetById),
             new { id = parque.Id },
             parque);
     }
 
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UpdateParqueDto dto)
+    public async Task<IActionResult> Update(
+        int id,
+        UpdateParqueDto dto)
     {
         var updated = await _parqueService.UpdateAsync(id, dto);
 
@@ -59,6 +69,8 @@ public class ParqueController : ControllerBase
         return NoContent();
     }
 
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

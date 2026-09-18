@@ -11,7 +11,7 @@ public interface IComentarioService
 
     Task<ComentarioDto> CreateAsync(int usuarioId, CreateComentarioDto dto);
 
-    Task<ResultadoOperacionComentario> UpdateAsync(int id, int usuarioId, UpdateComentarioDto dto);
+    Task<ResultadoOperacion> UpdateAsync(int id, int usuarioId, UpdateComentarioDto dto);
 
-    Task<ResultadoOperacionComentario> DeleteAsync(int id, int usuarioId);
+    Task<ResultadoOperacion> DeleteAsync(int id, int usuarioId);
 }
