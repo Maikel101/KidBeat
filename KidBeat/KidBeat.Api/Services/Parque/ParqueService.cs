@@ -17,7 +17,7 @@ public class ParqueService : IParqueService
 
     public async Task<IEnumerable<ParqueDto>> GetAllAsync()
     {
-        var parques = await _context.Parques
+        var parques = await SoloPublicados(_context.Parques)
             .ToListAsync();
 
         return parques.Select(MapToDto);
@@ -25,7 +25,7 @@ public class ParqueService : IParqueService
 
     public async Task<ParqueDto?> GetByIdAsync(int id)
     {
-        var parque = await _context.Parques
+        var parque = await SoloPublicados(_context.Parques)
             .FirstOrDefaultAsync(p => p.Id == id);
 
         return parque is null ? null : MapToDto(parque);
@@ -98,6 +98,10 @@ public class ParqueService : IParqueService
 
         return true;
     }
+
+    private static IQueryable<ParqueModel> SoloPublicados(
+        IQueryable<ParqueModel> query) =>
+        query.Where(p => p.EstadoParque == EstadoParque.Publicado);
 
     private static ParqueDto MapToDto(ParqueModel parque)
     {
